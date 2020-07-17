@@ -1,5 +1,5 @@
-﻿/* 
- * 
+﻿/*
+ *
  * HeapExtensions ported from C++ STLPort
  * (c) trenki2 2019
  *
@@ -45,7 +45,7 @@ public static class HeapExtensions
     }
 
     /// <summary>
-    /// Constructs a max heap in the range [first, last). 
+    /// Constructs a max heap in the range [first, last).
     /// </summary>
     public static void MakeHeap<T>(this IList<T> data, int first, int last) where T : IComparable
     {
@@ -54,7 +54,7 @@ public static class HeapExtensions
         int len = last - first;
         int parent = (len - 2) / 2;
 
-        for (;;)
+        for (; ; )
         {
             AdjustHeap(data, first, parent, len, data[first + parent]);
             if (parent == 0)
@@ -62,7 +62,6 @@ public static class HeapExtensions
             parent--;
         }
     }
-
 
     /// <summary>
     /// Inserts the last element of the list into the max heap defined by the
@@ -76,7 +75,7 @@ public static class HeapExtensions
     /// <summary>
     /// Equivalent to PushHeap(data, 0, data.Count).
     /// </summary>
-    public static void PushHeap<T>(this IList<T> data) where T : IComparable 
+    public static void PushHeap<T>(this IList<T> data) where T : IComparable
     {
         PushHeap(data, 0, data.Count);
     }

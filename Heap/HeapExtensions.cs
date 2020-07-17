@@ -36,6 +36,17 @@ using System.Collections.Generic;
 
 public static class HeapExtensions
 {
+    /// <summary>
+    /// Constructs a max heap for the entire list.
+    /// </summary>
+    public static void MakeHeap<T>(this IList<T> data) where T : IComparable
+    {
+        MakeHeap(data, 0, data.Count);
+    }
+
+    /// <summary>
+    /// Constructs a max heap in the range [first, last). 
+    /// </summary>
     public static void MakeHeap<T>(this IList<T> data, int first, int last) where T : IComparable
     {
         if (last - first < 2)
@@ -52,21 +63,30 @@ public static class HeapExtensions
         }
     }
 
-    public static void MakeHeap<T>(this IList<T> data) where T : IComparable
-    {
-        MakeHeap(data, 0, data.Count);
-    }
 
+    /// <summary>
+    /// Inserts the last element of the list into the max heap defined by the
+    /// range[first, last - 1).
+    /// </summary>
     public static void PushHeap<T>(this IList<T> data, int first, int last) where T : IComparable
     {
         PushHeap(data, first, (last - first) - 1, 0, data[last - 1]);
     }
 
-    public static void PushHeap<T>(this IList<T> data) where T : IComparable
+    /// <summary>
+    /// Equivalent to PushHeap(data, 0, data.Count).
+    /// </summary>
+    public static void PushHeap<T>(this IList<T> data) where T : IComparable 
     {
         PushHeap(data, 0, data.Count);
     }
 
+    /// <summary>
+    /// Swaps the value in the position first and the value in the position
+    /// last-1 and makes the subrange [first, last-1) into a heap. This has the
+    /// effect of removing the first element from the heap defined by the range
+    /// [first, last).
+    /// </summary>
     public static void PopHeap<T>(this IList<T> data, int first, int last) where T : IComparable
     {
         var result = data[first];
@@ -75,9 +95,22 @@ public static class HeapExtensions
         data[last - 1] = result;
     }
 
+    /// <summary>
+    /// Equivalent to PopHeap(data, 0, data.Count).
+    /// </summary>
     public static void PopHeap<T>(this IList<T> data) where T : IComparable
     {
         PopHeap(data, 0, data.Count);
+    }
+
+    /// <summary>
+    /// Use HeapSort to sort the list.
+    /// </summary>
+    public static void HeapSort<T>(this IList<T> data) where T : IComparable
+    {
+        data.MakeHeap();
+        for (int i = data.Count; i > 0; i--)
+            data.PopHeap(0, i);
     }
 
     private static void PushHeap<T>(IList<T> data, int first, int holeIndex, int topIndex, T val) where T : IComparable

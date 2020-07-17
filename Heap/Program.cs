@@ -10,12 +10,8 @@ namespace Heap
         {
             var data = new int[] { 5, 3, 2, 8, 9, 10 };
 
-            // Make the heap
-            data.MakeHeap();
-
-            // Heapsort (move max element to end of list)
-            for (int i = data.Length; i > 0; i--)
-                data.PopHeap(0, i);
+            // Sort using Heapsort
+            data.HeapSort();
 
             // Print result
             Console.WriteLine("data:");
